@@ -123,7 +123,7 @@ pip install stable-baselines3 gymnasium
 # CountHomLib installation (see above)
 ```
 
-### Running Experiments
+### Running Experiments (on the example of the Critical Exponents Conjecture)
 
 1. **AMCS Approach**:
 ```bash
