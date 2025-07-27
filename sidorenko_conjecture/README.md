@@ -93,12 +93,12 @@ This approach implements a numerical search for a counterexample to a specific c
    $$\sum_{i=1}^{mn} \lambda_i^5 \geq \frac{\left(\sum_{i,j} M_{ij}\right)^{15}}{(mn)^{10}}$$
 
 **Conjecture Gap**: The algorithm computes the Gap as:
-$$\text{Gap} = \sum_{i=1}^{mn} \lambda_i^5 - \frac{\left(\sum_{i,j} M_{ij}\right)^{15}}{(mn)^{10}}$$
+$$\text{Gap} = - \sum_{i=1}^{mn} \lambda_i^5 + \frac{\left(\sum_{i,j} M_{ij}\right)^{15}}{(mn)^{10}}$$
 
-- **Conjecture holds** if $\text{Gap} \geq 0$ for all matrices $M$
-- **Counterexample found** if $\text{Gap} < 0$ for some matrix $M$
+- **Conjecture holds** if $\text{Gap} \leq 0$ for all matrices $M$
+- **Counterexample found** if $\text{Gap} > 0$ for some matrix $M$
 
-The AMCS algorithm searches for a matrix $M$ that maximizes the negative gap, potentially finding a numerical counterexample to Sidorenko's conjecture.
+The AMCS algorithm searches for a matrix $M$ that tries to maximize the gap, potentially finding a numerical counterexample to Sidorenko's conjecture.
 
 ## Specific Target Cases
 
