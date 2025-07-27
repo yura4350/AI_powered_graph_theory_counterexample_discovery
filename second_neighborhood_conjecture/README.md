@@ -197,23 +197,6 @@ def check_convergence(score_history, window=10):
     return max(recent_scores) - min(recent_scores) < threshold
 ```
 
-## Mathematical Context
-
-### Related Results
-1. **Seymour's original conjecture**: Motivation and background
-2. **Tournament theory**: Related results on regular tournaments
-3. **Digraph connectivity**: Connections to strong connectivity
-
-### Open Questions
-1. **Minimum counterexample size**: What's the smallest possible counterexample?
-2. **Probabilistic bounds**: What's the probability of random graphs being counterexamples?
-3. **Algorithmic complexity**: Is finding counterexamples NP-hard?
-
-### Extensions
-1. **Weighted graphs**: Generalization to weighted digraphs
-2. **$k$-neighborhoods**: Extension to $k$-th neighborhoods for $k > 2$
-3. **Hypergraphs**: Analogous questions for directed hypergraphs
-
 ## Implementation Notes
 
 ### SageMath Dependencies
