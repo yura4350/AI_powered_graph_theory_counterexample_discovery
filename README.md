@@ -4,20 +4,20 @@ A comprehensive research project combining **Adaptive Monte Carlo Search (AMCS)*
 
 ## Project Overview
 
-This repository contains implementations of advanced AI algorithms designed to systematically search for counterexamples to three major graph theory conjectures:
+This repository contains implementations of advanced AI algorithms designed to systematically search for counterexamples to major graph theory conjectures and to find computational lower bounds for important mathematical problems:
 
-- **Critical Exponents Conjecture**
+- **Cycle Domination Exponents**
 - **Second Neighborhood Conjecture** 
 - **Sidorenko Conjecture**
 
-Each conjecture is approached using multiple algorithmic strategies and different mathematical representations (graphs, graphons, matrices) to maximize the probability of discovering counterexamples.
+Each problem is approached using multiple algorithmic strategies and different mathematical representations (graphs, graphons, matrices) to maximize the probability of discovering counterexamples or improving known bounds.
 
 ## Repository Structure
 
 ```
 AI_powered_graph_theory_counterexample_discovery/
 ├── CountHomLib/                    # Homomorphism counting library
-├── critical_exponents_conjecture/  # Critical exponents research
+├── cycle_domination_exponents/     # Cycle domination exponents research
 │   ├── graph/                     # Graph-based approaches
 │   └── graphon/                   # Graphon-based approaches
 ├── second_neighborhood_conjecture/ # Second neighborhood research
@@ -95,12 +95,12 @@ CXX="$(brew --prefix llvm)/bin/clang++" \
 pip3 install ./CountHomLib
 ```
 
-## Research Conjectures
+## Research Problems
 
-### [Critical Exponents Conjecture](critical_exponents_conjecture/)
-**Objective**: Find graphs maximizing the ratio log(t(H₁,T)) / log(t(H₂,T)) for specific graphs H₁, H₂.
+### [Cycle Domination Exponents](cycle_domination_exponents/)
+**Objective**: Find computational lower bounds for the homomorphism density domination exponent C(H₁,H₂) between pairs of cycle graphs by maximizing the ratio log(t(H₁,T)) / log(t(H₂,T)).
 
-**Applications**: Understanding extremal properties of homomorphism densities and their asymptotic behavior.
+**Applications**: Understanding extremal properties of homomorphism densities and their asymptotic behavior, with specific focus on odd cycles like C₅ and C₃.
 
 ### [Second Neighborhood Conjecture](second_neighborhood_conjecture/)
 **Objective**: Find oriented graphs where every vertex v satisfies |N⁺⁺(v)| ≥ |N⁺(v)|.
@@ -123,23 +123,23 @@ pip install stable-baselines3 gymnasium
 # CountHomLib installation (see above)
 ```
 
-### Running Experiments (on the example of the Critical Exponents Conjecture)
+### Running Experiments (on the example of the Cycle Domination Exponents)
 
 1. **AMCS Approach**:
 ```bash
-cd critical_exponents_conjecture/graph/amcs_approach/
+cd cycle_domination_exponents/graph/amcs_approach/
 python main.py
 ```
 
 2. **RL Approach**:
 ```bash
-cd critical_exponents_conjecture/graph/rl_approach/
+cd cycle_domination_exponents/graph/rl_approach/
 python train_rl.py
 ```
 
 3. **Hybrid RL+AMCS**:
 ```bash
-cd critical_exponents_conjecture/graph/rl+amcs_approach/
+cd cycle_domination_exponents/graph/rl+amcs_approach/
 python main.py
 ```
 
@@ -194,6 +194,7 @@ We welcome contributions from the graph theory and machine learning communities:
 
 ## References
 
+- Blekherman, G., Raymond, A., Razborov, A., & Wei, F. (2025). On Domination Exponents for Pairs of Graphs. arXiv:2506.12151
 - Díaz, J., Serna, M., & Thilikos, D. M. (2002). Counting H-colorings of partial k-trees
 - Lovász, L. (2012). Large networks and graph limits
 - Sidorenko, A. F. (1993). A correlation inequality for bipartite graphs
