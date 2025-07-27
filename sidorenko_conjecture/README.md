@@ -2,26 +2,22 @@
 
 This directory contains implementations for discovering counterexamples to the **Sidorenko Conjecture**, one of the most important open problems in extremal graph theory concerning homomorphism densities of bipartite graphs.
 
-## 🎯 Mathematical Background
+## Mathematical Background
 
 ### The Conjecture
 Sidorenko's Conjecture, formulated by Alexander Sidorenko in 1993, states that:
 
-> *For every bipartite graph H and every graph G:*
-> ```
-> t(H, G) ≥ t(K₂, G)^|E(H)|
-> ```
+> *For every bipartite graph $H$ and every graph $G$:*
+> $$t(H, G) \geq t(K_2, G)^{|E(H)|}$$
 
 Where:
-- **t(H, G)**: The **homomorphism density** of H in G
-- **K₂**: The complete graph on 2 vertices (single edge)
-- **|E(H)|**: The number of edges in H
+- **$t(H, G)$**: The **homomorphism density** of $H$ in $G$
+- **$K_2$**: The complete graph on 2 vertices (single edge)
+- **$|E(H)|$**: The number of edges in $H$
 
 ### Research Objective
-Find counterexamples: bipartite graphs H and graphs G such that:
-```
-t(H, G) < t(K₂, G)^|E(H)|
-```
+Find counterexamples: bipartite graphs $H$ and graphs $G$ such that:
+$$t(H, G) < t(K_2, G)^{|E(H)|}$$
 
 This would constitute a violation of Sidorenko's conjecture and would have significant implications for extremal graph theory.
 
@@ -30,7 +26,7 @@ This would constitute a violation of Sidorenko's conjecture and would have signi
 - **Homomorphism theory**: Connects to the broader theory of graph homomorphisms
 - **Probabilistic methods**: Related to correlation inequalities in probability theory
 
-## 🏗️ Directory Structure
+## Directory Structure
 
 ```
 sidorenko_conjecture/
@@ -55,14 +51,14 @@ sidorenko_conjecture/
         └── main.py          # RL training script
 ```
 
-## 🔬 Algorithmic Approaches
+## Algorithmic Approaches
 
 ### 1. Graph-Based Methods (`graph/`)
 
 #### AMCS for Discrete Graphs
 - **Framework**: SageMath implementation
 - **Target**: Small bipartite graphs (trees, cycles, complete bipartite graphs)
-- **Strategy**: Search over host graphs G to minimize t(H,G)/t(K₂,G)^|E(H)|
+- **Strategy**: Search over host graphs $G$ to minimize $\frac{t(H,G)}{t(K_2,G)^{|E(H)|}}$
 
 **Key Features**:
 - CountHomLib integration for efficient homomorphism counting
@@ -72,43 +68,39 @@ sidorenko_conjecture/
 ### 2. Graphon-Based Methods (`graphon/`)
 
 #### Continuous Optimization
-- **Representation**: Symmetric matrices W ∈ [0,1]ⁿˣⁿ representing graphons
+- **Representation**: Symmetric matrices $W \in [0,1]^{n \times n}$ representing graphons
 - **Objective**: Minimize homomorphism integrals
 - **Advantage**: Continuous search space allows for analytical insights
 
 **Mathematical Foundation**:
-```
-t(H, W) = ∫[0,1]^|V(H)| ∏_{(i,j)∈E(H)} W(xᵢ, xⱼ) dx₁...dx_{|V(H)|}
-```
+$$t(H, W) = \int_{[0,1]^{|V(H)|}} \prod_{(i,j) \in E(H)} W(x_i, x_j) \prod_{i=1}^{|V(H)|} dx_i$$
 
 ### 3. Matrix-Based Methods (`matrix/`)
 
 #### Eigenvalue Formulation
 - **Approach**: Express homomorphism densities using matrix eigenvalues
 - **Target**: Specific bipartite graphs with nice spectral properties
-- **Example**: K₅,₅ \ C₁₀ (complete bipartite minus perfect matching)
+- **Example**: $K_{5,5} \setminus C_{10}$ (complete bipartite minus perfect matching)
 
 **Spectral Approach**:
 For certain bipartite graphs, homomorphism densities can be expressed as:
-```
-t(H, M) = λ₁(M^H) / |V(G)|^|V(H)|
-```
-where λ₁ is the largest eigenvalue.
+$$t(H, M) = \frac{\lambda_1(M^H)}{|V(G)|^{|V(H)|}}$$
+where $\lambda_1$ is the largest eigenvalue.
 
-## 🎯 Specific Target Cases
+## Specific Target Cases
 
 ### Known Difficult Cases
 1. **Trees**: All trees satisfy Sidorenko's conjecture (proven)
-2. **Even cycles**: C₄, C₆, ... satisfy the conjecture (proven)
-3. **Complete bipartite graphs**: K_{s,t} cases are challenging
-4. **K₅,₅ \ C₁₀**: Specific case targeted by matrix methods
+2. **Even cycles**: $C_4, C_6, \ldots$ satisfy the conjecture (proven)
+3. **Complete bipartite graphs**: $K_{s,t}$ cases are challenging
+4. **$K_{5,5} \setminus C_{10}$**: Specific case targeted by matrix methods
 
 ### Promising Counterexample Candidates
-1. **Large complete bipartite graphs**: K_{m,n} for large m,n
+1. **Large complete bipartite graphs**: $K_{m,n}$ for large $m,n$
 2. **Bipartite graphs with large girth**: Avoiding short cycles
 3. **Random bipartite graphs**: Specific probabilistic constructions
 
-## 🚀 Usage Examples
+## Usage Examples
 
 ### Graph-Based AMCS
 ```bash
@@ -144,7 +136,7 @@ cd matrix/amcs_approach/
 python main.py
 ```
 
-**Targeting K₅,₅ \ C₁₀**:
+**Targeting $K_{5,5} \setminus C_{10}$**:
 ```
 --- Searching for counterexample to Sidorenko's Conjecture for K5,5 \ C10 ---
 --- Using eigenvalue formulation on 4x4 matrices ---
@@ -167,7 +159,7 @@ python main.py
 - Reward based on Sidorenko gap
 - Continuous action space for matrix values
 
-## 📊 Implementation Details
+## Implementation Details
 
 ### Homomorphism Density Calculation
 ```python
@@ -216,27 +208,19 @@ def tree_preserving_perturbation(G):
     return G
 ```
 
-## 📈 Research Results and Insights
+## Research Results and Insights
 
 ### Computational Findings
-1. **Small graphs**: No counterexamples found for graphs with ≤ 15 vertices
+1. **Small graphs**: No counterexamples found for graphs with $\leq 15$ vertices
 2. **Tree optimization**: Host graphs often converge to near-regular structures
-3. **Matrix approach**: K₅,₅ \ C₁₀ shows promising but inconclusive results
+3. **Matrix approach**: $K_{5,5} \setminus C_{10}$ shows promising but inconclusive results
 
 ### Theoretical Insights
 1. **Regularity**: Extremal graphs tend to have regular or near-regular degree sequences
 2. **Density**: Optimal edge densities often cluster around specific values
 3. **Structure**: Extremal graphs exhibit particular structural properties
 
-### Performance Metrics
-| Method | Target Graph | Best Gap | Time (hours) | Success Rate |
-|--------|--------------|----------|--------------|--------------|
-| Graph AMCS | Trees ≤ 6 | -0.089 | 2 | 0% counterexamples |
-| Graphon AMCS | C₄ | -0.156 | 0.5 | 0% counterexamples |
-| Matrix AMCS | K₅,₅ \ C₁₀ | -0.023 | 8 | 0% counterexamples |
-| Matrix RL | K₅,₅ \ C₁₀ | -0.034 | 12 | 0% counterexamples |
-
-## 🔍 Advanced Techniques
+## Advanced Techniques
 
 ### Symmetry Breaking
 ```python
@@ -272,11 +256,11 @@ def parallel_amcs(H, num_workers=4):
     return min(results, key=lambda x: x.gap)
 ```
 
-## 📚 Mathematical Context
+## Mathematical Context
 
 ### Known Results
 1. **Trees**: Sidorenko's conjecture is true (Kruskal 1999)
-2. **Complete bipartite graphs**: True for K_{s,t} with small s,t
+2. **Complete bipartite graphs**: True for $K_{s,t}$ with small $s,t$
 3. **Even cycles**: True for all even cycles
 4. **Razborov's method**: Flag algebra techniques provide partial results
 
@@ -290,7 +274,7 @@ def parallel_amcs(H, num_workers=4):
 2. **Computational complexity**: Is finding counterexamples decidable?
 3. **Probabilistic constructions**: Can random methods find counterexamples?
 
-## 🎯 Future Research Directions
+## Future Research Directions
 
 ### Algorithmic Improvements
 1. **Quantum algorithms**: Quantum annealing for optimization
@@ -307,7 +291,7 @@ def parallel_amcs(H, num_workers=4):
 2. **Distributed computing**: Large-scale search across clusters
 3. **Approximation algorithms**: Near-optimal solutions for large instances
 
-## 🔧 Dependencies and Setup
+## Dependencies and Setup
 
 ### Required Libraries
 ```bash

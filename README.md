@@ -61,7 +61,7 @@ Combined approach that:
 
 ### Graphons
 - **Continuous representations**: Limit objects of graph sequences
-- **Symmetric matrices**: Values in [0,1] representing edge probabilities
+- **Symmetric matrices**: Values in $[0,1]$ representing edge probabilities
 - **Homomorphism integration**: Using advanced calculus techniques
 
 ### Matrices
@@ -98,17 +98,17 @@ pip3 install ./CountHomLib
 ## Research Problems
 
 ### [Cycle Domination Exponents](cycle_domination_exponents/)
-**Objective**: Find computational lower bounds for the homomorphism density domination exponent C(H₁,H₂) between pairs of cycle graphs by maximizing the ratio log(t(H₁,T)) / log(t(H₂,T)).
+**Objective**: Find computational lower bounds for the homomorphism density domination exponent $C(H_1,H_2)$ between pairs of cycle graphs by maximizing the ratio $\frac{\log(t(H_1,T))}{\log(t(H_2,T))}$.
 
-**Applications**: Understanding extremal properties of homomorphism densities and their asymptotic behavior, with specific focus on odd cycles like C₅ and C₃.
+**Applications**: Understanding extremal properties of homomorphism densities and their asymptotic behavior, with specific focus on odd cycles like $C_5$ and $C_3$.
 
 ### [Second Neighborhood Conjecture](second_neighborhood_conjecture/)
-**Objective**: Find oriented graphs where every vertex v satisfies |N⁺⁺(v)| ≥ |N⁺(v)|.
+**Objective**: Find oriented graphs where every vertex $v$ satisfies $|N^{++}(v)| \geq |N^+(v)|$.
 
 **Applications**: Structural graph theory and tournament analysis.
 
 ### [Sidorenko Conjecture](sidorenko_conjecture/)
-**Objective**: Find counterexamples to the conjecture that bipartite graphs H satisfy t(H,G) ≥ t(K₂,G)^|E(H)|.
+**Objective**: Find counterexamples to the conjecture that bipartite graphs $H$ satisfy $t(H,G) \geq t(K_2,G)^{|E(H)|}$.
 
 **Applications**: Extremal graph theory and combinatorial optimization.
 
@@ -150,12 +150,6 @@ python main.py
 - **Statistical analysis** of convergence properties
 - **Comparative evaluation** between algorithmic approaches
 - **Scalability studies** on varying graph sizes
-
-### Performance Metrics
-- **Objective function values** (conjecture-specific)
-- **Convergence rates** and stability analysis
-- **Computational efficiency** and resource utilization
-- **Solution quality** and mathematical rigor
 
 ### Validation
 - **Mathematical verification** of discovered counterexamples

@@ -2,30 +2,28 @@
 
 This directory contains implementations for discovering counterexamples to the **Second Neighborhood Conjecture**, which concerns the relationship between out-degrees and second neighborhoods in oriented graphs.
 
-## 🎯 Mathematical Background
+## Mathematical Background
 
 ### The Conjecture
 The Second Neighborhood Conjecture, formulated by Seymour, states that:
 
-> *Every oriented graph contains a vertex v such that |N⁺⁺(v)| ≥ |N⁺(v)|*
+> *Every oriented graph contains a vertex $v$ such that $|N^{++}(v)| \geq |N^+(v)|$*
 
 Where:
-- **N⁺(v)**: The **out-neighborhood** of vertex v (vertices directly reachable from v)
-- **N⁺⁺(v)**: The **second out-neighborhood** of vertex v (vertices reachable in exactly 2 steps from v, excluding N⁺(v) and v itself)
+- **$N^+(v)$**: The **out-neighborhood** of vertex $v$ (vertices directly reachable from $v$)
+- **$N^{++}(v)$**: The **second out-neighborhood** of vertex $v$ (vertices reachable in exactly 2 steps from $v$, excluding $N^+(v)$ and $v$ itself)
 
 ### Research Objective
-Find oriented graphs where **every vertex** satisfies |N⁺⁺(v)| < |N⁺(v)|, which would constitute a counterexample to the conjecture.
+Find oriented graphs where **every vertex** satisfies $|N^{++}(v)| < |N^+(v)|$, which would constitute a counterexample to the conjecture.
 
 ### Mathematical Formulation
-For a directed graph G and vertex v:
-```
-N⁺(v) = {u ∈ V(G) : (v,u) ∈ E(G)}
-N⁺⁺(v) = {w ∈ V(G) : ∃u ∈ N⁺(v) such that (u,w) ∈ E(G), w ∉ N⁺(v) ∪ {v}}
-```
+For a directed graph $G$ and vertex $v$:
+$$N^+(v) = \{u \in V(G) : (v,u) \in E(G)\}$$
+$$N^{++}(v) = \{w \in V(G) : \exists u \in N^+(v) \text{ such that } (u,w) \in E(G), w \notin N^+(v) \cup \{v\}\}$$
 
-**Goal**: Find G where ∀v ∈ V(G): |N⁺⁺(v)| < |N⁺(v)|
+**Goal**: Find $G$ where $\forall v \in V(G): |N^{++}(v)| < |N^+(v)|$
 
-## 🏗️ Directory Structure
+## Directory Structure
 
 ```
 second_neighborhood_conjecture/
@@ -43,7 +41,7 @@ second_neighborhood_conjecture/
     └── train_rl.py                # RL training script
 ```
 
-## 🔬 Algorithmic Approaches
+## Algorithmic Approaches
 
 ### 1. AMCS (Adaptive Monte Carlo Search)
 
@@ -69,7 +67,7 @@ second_neighborhood_conjecture/
 - **Algorithm**: PPO (Proximal Policy Optimization)
 - **Action space**: Edge modifications in directed graphs
 
-## 🔧 Implementation Details
+## Implementation Details
 
 ### Scoring Function (v0)
 The scoring system uses a weighted penalty approach:
@@ -112,7 +110,7 @@ def calculate_second_neighborhood(A, v):
     return sum(1 for x in Npp_matrix[v] if x > 0)
 ```
 
-## 🚀 Usage Examples
+## Usage Examples
 
 ### Running AMCS v0
 ```bash
@@ -155,26 +153,7 @@ python train_rl.py
 - Reward: Based on neighborhood property satisfaction
 - Training: PPO algorithm with custom environment
 
-## 📊 Algorithm Performance
-
-### AMCS Characteristics
-- **Search space**: Exponential in number of vertices and edges
-- **Convergence**: Typically within 50-100 levels for small graphs
-- **Success rate**: Depends on graph size and initial configuration
-
-### Computational Complexity
-- **Per iteration**: O(n³) for neighborhood calculations
-- **Total complexity**: Depends on search depth and branching factor
-- **Memory**: O(n²) for adjacency matrix storage
-
-### Empirical Results
-| Graph Size | AMCS Success | RL Performance | Best Score |
-|------------|--------------|----------------|------------|
-| 5 vertices | High         | Moderate       | Often > 0  |
-| 10 vertices| Moderate     | Good           | Variable   |
-| 15 vertices| Low          | Best           | Usually < 0|
-
-## 🎯 Research Insights
+## Research Insights
 
 ### Theoretical Implications
 1. **Structural properties**: Counterexamples (if they exist) likely have special structure
@@ -191,7 +170,7 @@ python train_rl.py
 - **Sparse graphs**: May be more promising for counterexamples
 - **Regular structures**: Tournament-like structures show patterns
 
-## 🔍 Advanced Features
+## Advanced Features
 
 ### Adaptive Penalties (v1)
 ```sage
@@ -204,7 +183,7 @@ def adaptive_penalty_score(A):
 ```
 
 ### Graph Generation Strategies
-1. **Random oriented graphs**: G(n,p) with random orientations
+1. **Random oriented graphs**: $G(n,p)$ with random orientations
 2. **Tournament-based**: Start from tournaments and modify
 3. **Structured graphs**: Begin with specific graph classes
 
@@ -218,7 +197,7 @@ def check_convergence(score_history, window=10):
     return max(recent_scores) - min(recent_scores) < threshold
 ```
 
-## 📚 Mathematical Context
+## Mathematical Context
 
 ### Related Results
 1. **Seymour's original conjecture**: Motivation and background
@@ -232,10 +211,10 @@ def check_convergence(score_history, window=10):
 
 ### Extensions
 1. **Weighted graphs**: Generalization to weighted digraphs
-2. **k-neighborhoods**: Extension to k-th neighborhoods for k > 2
+2. **$k$-neighborhoods**: Extension to $k$-th neighborhoods for $k > 2$
 3. **Hypergraphs**: Analogous questions for directed hypergraphs
 
-## 🔧 Implementation Notes
+## Implementation Notes
 
 ### SageMath Dependencies
 ```sage
@@ -254,7 +233,7 @@ from time import time
 2. **Property verification**: Manual checking of neighborhood conditions
 3. **Score tracking**: Detailed logging of optimization progress
 
-## 🚀 Future Directions
+## Future Directions
 
 ### Algorithmic Improvements
 1. **Parallel search**: Multi-threaded exploration

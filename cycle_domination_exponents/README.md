@@ -4,28 +4,24 @@ This repository contains implementations of Adaptive Monte Carlo Search (AMCS), 
 
 ## Mathematical Background
 
-The core of this research is the homomorphism density domination exponent, a concept that unifies several problems in extremal combinatorics. For two graphs, H₁ and H₂, this exponent is defined as the smallest real number c that satisfies the inequality for all possible target graphs T:
+The core of this research is the homomorphism density domination exponent, a concept that unifies several problems in extremal combinatorics. For two graphs, $H_1$ and $H_2$, this exponent is defined as the smallest real number $c$ that satisfies the inequality for all possible target graphs $T$:
 
-```
-t(H₁, T) ≥ t(H₂, T)^c
-```
+$$t(H_1, T) \geq t(H_2, T)^c$$
 
-where t(H,T) is the homomorphism density of graph H in graph T. This project is specifically motivated by the challenge of determining this exponent, denoted C(H₁,H₂), for pairs of odd cycles.
+where $t(H,T)$ is the homomorphism density of graph $H$ in graph $T$. This project is specifically motivated by the challenge of determining this exponent, denoted $C(H_1,H_2)$, for pairs of odd cycles.
 
-The 2025 paper "On Domination Exponents for Pairs of Graphs" by Blekherman, Raymond, Razborov, and Wei establishes the following theoretical bounds for odd cycles C_{2k+1} and C_{2l+1} where k≥l:
+The 2025 paper "On Domination Exponents for Pairs of Graphs" by Blekherman, Raymond, Razborov, and Wei establishes the following theoretical bounds for odd cycles $C_{2k+1}$ and $C_{2l+1}$ where $k \geq l$:
 
 - **Upper Bound**: The paper provides an upper bound derived from a "tensor trick" and inequalities involving even cycles.
-- **Lower Bound**: A general lower bound is established as C(C_{2k+1}, C_{2l+1}) ≥ (4k²-1)/(4kl-1).
+- **Lower Bound**: A general lower bound is established as $C(C_{2k+1}, C_{2l+1}) \geq \frac{4k^2-1}{4kl-1}$.
 
-For the specific case of C₅ and C₃ (where k=2, l=1), this creates the intriguing interval C(C₅,C₃) ∈ [15/7, 11/5], which is approximately [2.143, 2.2].
+For the specific case of $C_5$ and $C_3$ (where $k=2$, $l=1$), this creates the intriguing interval $C(C_5,C_3) \in [\frac{15}{7}, \frac{11}{5}]$, which is approximately $[2.143, 2.2]$.
 
 ## Research Objective
 
-The primary goal of this software is to computationally search for target graphs T that yield a higher lower bound for C(C_{2k+1}, C_{2l+1}) than is currently known from theory. We aim to maximize the ratio:
+The primary goal of this software is to computationally search for target graphs $T$ that yield a higher lower bound for $C(C_{2k+1}, C_{2l+1})$ than is currently known from theory. We aim to maximize the ratio:
 
-```
-log(t(C_{2l+1}, T)) / log(t(C_{2k+1}, T))
-```
+$$\frac{\log(t(C_{2l+1}, T))}{\log(t(C_{2k+1}, T))}$$
 
 This provides strong empirical evidence and may guide the development of new theoretical conjectures.
 
@@ -66,7 +62,7 @@ cycle_domination_exponents/
 - **Algorithm**: Proximal Policy Optimization (PPO) with a custom graph environment.
 - **Features**:
   - **Action Space**: Modifying edges in the graph.
-  - **Reward**: Improvement in the exponent C(H₁, H₂).
+  - **Reward**: Improvement in the exponent $C(H_1, H_2)$.
   - **State Space**: The graph's adjacency matrix.
 
 #### Hybrid RL+AMCS
@@ -77,17 +73,15 @@ cycle_domination_exponents/
 
 ### 2. Graphon-Based Methods
 
-- **Representation**: A graphon is a symmetric, measurable function W:[0,1]² → [0,1], which serves as a limit object for sequences of dense graphs.
+- **Representation**: A graphon is a symmetric, measurable function $W:[0,1]^2 \to [0,1]$, which serves as a limit object for sequences of dense graphs.
 - **Objective**: Maximize the exponent using continuous homomorphism integrals.
 - **Mathematical Foundation**:
 
-```
-t(H, W) = ∫[0,1]^|V(H)| ∏_{(i,j) ∈ E(H)} W(x_i, x_j) ∏_{i=1}^|V(H)| dx_i
-```
+$$t(H, W) = \int_{[0,1]^{|V(H)|}} \prod_{(i,j) \in E(H)} W(x_i, x_j) \prod_{i=1}^{|V(H)|} dx_i$$
 
 ## Usage Examples
 
-### Running AMCS on Graphs for C(C₅, C₃)
+### Running AMCS on Graphs for $C(C_5, C_3)$
 
 ```bash
 cd graph/amcs_approach/
@@ -95,7 +89,7 @@ cd graph/amcs_approach/
 python main.py
 ```
 
-**Note**: While this example targets C(C₅, C₃), the scripts are configurable for any pair of cycle graphs.
+**Note**: While this example targets $C(C_5, C_3)$, the scripts are configurable for any pair of cycle graphs.
 
 **Expected Output**:
 ```
@@ -109,18 +103,6 @@ Best exponent (lvl 1, dpt 0): 2.156789
 New best exponent found: 2.181234
 Total search time: 45.23 seconds
 ```
-
-## Performance Analysis
-
-### Example Empirical Results for C(C₅, C₃)
-
-The following table shows sample results for finding a lower bound for C(C₅,C₃) on a 20-vertex graph.
-
-| Method | Best Exponent | Time (min) |
-|--------|---------------|------------|
-| AMCS   | 2.181         | 15         |
-| RL     | 2.165         | 45         |
-| Hybrid | 2.189         | 35         |
 
 ## Implementation Details
 
