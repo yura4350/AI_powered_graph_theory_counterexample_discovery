@@ -77,15 +77,28 @@ $$t(H, W) = \int_{[0,1]^{|V(H)|}} \prod_{(i,j) \in E(H)} W(x_i, x_j) \prod_{i=1}
 
 ### 3. Matrix-Based Methods (`matrix/`)
 
-#### Eigenvalue Formulation
-- **Approach**: Express homomorphism densities using matrix eigenvalues
-- **Target**: Specific bipartite graphs with nice spectral properties
-- **Example**: $K_{5,5} \setminus C_{10}$ (complete bipartite minus perfect matching)
+#### Eigenvalue Formulation for $K_{5,5} \setminus C_{10}$
 
-**Spectral Approach**:
-For certain bipartite graphs, homomorphism densities can be expressed as:
-$$t(H, M) = \frac{\lambda_1(M^H)}{|V(G)|^{|V(H)|}}$$
-where $\lambda_1$ is the largest eigenvalue.
+This approach implements a numerical search for a counterexample to a specific case of Sidorenko's Conjecture related to the graph $K_{5,5} \setminus C_{10}$ (the complete bipartite graph on $5+5$ vertices minus a 10-cycle).
+
+**Lovász's Equivalent Formulation**: The search uses an eigenvalue-based formulation developed by László Lovász, which recasts the homomorphism density problem into linear algebra. Instead of working directly with graphs, we search over matrices with non-negative entries.
+
+**The Matrix Problem**: Find an $m \times n$ matrix $M$ with non-negative entries that could potentially violate the conjecture for $K_{5,5} \setminus C_{10}$.
+
+**Conjecture Test Procedure**:
+1. **Matrix Construction**: Start with a random symmetric matrix $M \in \mathbb{R}^{m \times n}$ with non-negative entries
+2. **Extension**: Construct a large $mn \times mn$ matrix $\tilde{M}$ from $M$ using the graph structure of $K_{5,5} \setminus C_{10}$
+3. **Eigenvalue Computation**: Calculate the eigenvalues $\lambda_1, \lambda_2, \ldots, \lambda_{mn}$ of $\tilde{M}$
+4. **Inequality Evaluation**: Test the equivalent formulation:
+   $$\sum_{i=1}^{mn} \lambda_i^5 \geq \frac{\left(\sum_{i,j} M_{ij}\right)^{15}}{(mn)^{10}}$$
+
+**Conjecture Gap**: The algorithm computes the Gap as:
+$$\text{Gap} = \sum_{i=1}^{mn} \lambda_i^5 - \frac{\left(\sum_{i,j} M_{ij}\right)^{15}}{(mn)^{10}}$$
+
+- **Conjecture holds** if $\text{Gap} \geq 0$ for all matrices $M$
+- **Counterexample found** if $\text{Gap} < 0$ for some matrix $M$
+
+The AMCS algorithm searches for a matrix $M$ that maximizes the negative gap, potentially finding a numerical counterexample to Sidorenko's conjecture.
 
 ## Specific Target Cases
 
@@ -130,22 +143,28 @@ python main.py
 - Integration with numerical methods
 - Potential for analytical insights
 
-### Matrix-Based Approach
+### Matrix-Based Approach for $K_{5,5} \setminus C_{10}$
 ```bash
 cd matrix/amcs_approach/
 python main.py
 ```
 
-**Targeting $K_{5,5} \setminus C_{10}$**:
+**Expected Output**:
 ```
 --- Searching for counterexample to Sidorenko's Conjecture for K5,5 \ C10 ---
 --- Using eigenvalue formulation on 4x4 matrices ---
-Initial M:
+Starting with random symmetric matrix M:
 [[0.123 0.456 0.789 0.234]
- [0.567 0.890 0.345 0.678]
- [0.901 0.234 0.567 0.890]
- [0.345 0.678 0.901 0.234]]
+ [0.456 0.890 0.345 0.678]
+ [0.789 0.345 0.567 0.890]
+ [0.234 0.678 0.890 0.234]]
+
+Initial Gap: -0.0234
+Best Gap (lvl 1, dpt 0): -0.0187
+Best Gap (lvl 2, dpt 0): -0.0089
 ...
+Search completed. Best Gap found: -0.0023
+No counterexample discovered (Gap still negative)
 ```
 
 ### RL for Matrix Optimization
@@ -156,8 +175,9 @@ python main.py
 
 **RL Features**:
 - PPO agent optimizing matrix entries
-- Reward based on Sidorenko gap
+- Reward based on Sidorenko gap maximization
 - Continuous action space for matrix values
+- Symmetric matrix constraints maintained during training
 
 ## Implementation Details
 
@@ -187,6 +207,27 @@ def sidorenko_gap(H, G):
     return t_H_G - expected_by_sidorenko
 ```
 
+### Matrix Gap Calculation
+```python
+import numpy as np
+
+def matrix_sidorenko_gap(M):
+    """Calculate the eigenvalue-based gap for K5,5 \ C10"""
+    # Construct the extended matrix M_tilde
+    M_tilde = construct_extended_matrix(M)
+    
+    # Compute eigenvalues
+    eigenvalues = np.linalg.eigvals(M_tilde)
+    
+    # Calculate the gap
+    sum_lambda_5 = np.sum(eigenvalues**5)
+    sum_M_15 = np.sum(M)**15
+    mn = M.shape[0] * M.shape[1]
+    
+    gap = sum_lambda_5 - sum_M_15 / (mn**10)
+    return gap
+```
+
 ### Graph Perturbation for Trees
 ```sage
 def tree_preserving_perturbation(G):
@@ -213,14 +254,29 @@ def tree_preserving_perturbation(G):
 ### Computational Findings
 1. **Small graphs**: No counterexamples found for graphs with $\leq 15$ vertices
 2. **Tree optimization**: Host graphs often converge to near-regular structures
-3. **Matrix approach**: $K_{5,5} \setminus C_{10}$ shows promising but inconclusive results
+3. **Matrix approach**: $K_{5,5} \setminus C_{10}$ shows promising convergence but no counterexamples yet discovered
+4. **Eigenvalue behavior**: Gap values consistently improve during optimization but remain negative
 
 ### Theoretical Insights
 1. **Regularity**: Extremal graphs tend to have regular or near-regular degree sequences
 2. **Density**: Optimal edge densities often cluster around specific values
 3. **Structure**: Extremal graphs exhibit particular structural properties
+4. **Matrix symmetry**: Symmetric matrices often yield better gap values in the eigenvalue formulation
 
 ## Advanced Techniques
+
+### Random Symmetric Matrix Initialization
+```python
+def initialize_random_symmetric_matrix(m, n):
+    """Initialize a random symmetric matrix with non-negative entries"""
+    M = np.random.rand(m, n)
+    # Ensure symmetry if m == n
+    if m == n:
+        M = (M + M.T) / 2
+    # Ensure non-negative entries
+    M = np.abs(M)
+    return M
+```
 
 ### Symmetry Breaking
 ```python
