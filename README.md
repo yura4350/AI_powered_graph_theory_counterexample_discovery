@@ -2,7 +2,7 @@
 
 A comprehensive research project combining **Adaptive Monte Carlo Search (AMCS)**, **Reinforcement Learning (RL)**, and **Hybrid RL+AMCS** algorithms to discover counterexamples for fundamental graph theory conjectures.
 
-## 🎯 Project Overview
+## Project Overview
 
 This repository contains implementations of advanced AI algorithms designed to systematically search for counterexamples to three major graph theory conjectures:
 
@@ -12,7 +12,7 @@ This repository contains implementations of advanced AI algorithms designed to s
 
 Each conjecture is approached using multiple algorithmic strategies and different mathematical representations (graphs, graphons, matrices) to maximize the probability of discovering counterexamples.
 
-## 🏗️ Repository Structure
+## Repository Structure
 
 ```
 AI_powered_graph_theory_counterexample_discovery/
@@ -29,7 +29,7 @@ AI_powered_graph_theory_counterexample_discovery/
     └── matrix/                   # Matrix-based approaches
 ```
 
-## 🔬 Algorithmic Approaches
+## Algorithmic Approaches
 
 ### 1. Adaptive Monte Carlo Search (AMCS)
 A sophisticated heuristic search algorithm that:
@@ -40,7 +40,7 @@ A sophisticated heuristic search algorithm that:
 
 ### 2. Reinforcement Learning (RL)
 Machine learning approach featuring:
-- **PPO (Proximal Policy Optimization)** agents
+- **PPO (Proximal Policy Optimization)** agents for discrete spaces and **SAC (Soft Actor-Critic)** agents for continuous spaces
 - Custom graph environments for each conjecture
 - Reward functions based on conjecture-specific objectives
 - Continuous learning and adaptation
@@ -52,7 +52,7 @@ Combined approach that:
 - Implements knowledge transfer between approaches
 - Maximizes strengths of both methodologies
 
-## 📊 Mathematical Representations
+## Mathematical Representations
 
 ### Graphs
 - **Standard graphs**: Traditional vertex-edge representations
@@ -69,9 +69,9 @@ Combined approach that:
 - **Optimization on matrix spaces**: Direct search in matrix manifolds
 - **Algebraic formulations**: Leveraging linear algebra properties
 
-## 🛠️ CountHomLib Integration
+## CountHomLib Integration
 
-This project extensively uses [CountHomLib](https://github.com/kevinwangwkw/CountHomLib), an efficient C++ library for counting graph homomorphisms with Python bindings.
+This project extensively uses [CountHomLib](https://github.com/kevinwangwkw/CountHomLib), the newest and the most efficient C++ library for counting graph homomorphisms with Python bindings developed by our Research Team
 
 ### Key Features:
 - **Polynomial-time algorithms** for tree-width bounded graphs
@@ -95,7 +95,7 @@ CXX="$(brew --prefix llvm)/bin/clang++" \
 pip3 install ./CountHomLib
 ```
 
-## 🎯 Research Conjectures
+## Research Conjectures
 
 ### [Critical Exponents Conjecture](critical_exponents_conjecture/)
 **Objective**: Find graphs maximizing the ratio log(t(H₁,T)) / log(t(H₂,T)) for specific graphs H₁, H₂.
@@ -112,7 +112,7 @@ pip3 install ./CountHomLib
 
 **Applications**: Extremal graph theory and combinatorial optimization.
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 ```bash
@@ -143,7 +143,7 @@ cd critical_exponents_conjecture/graph/rl+amcs_approach/
 python main.py
 ```
 
-## 📈 Research Methodology
+## Research Methodology
 
 ### Experimental Design
 - **Systematic parameter sweeps** across algorithm hyperparameters
@@ -163,7 +163,7 @@ python main.py
 - **Peer review** and community validation
 - **Reproducibility** through detailed documentation
 
-## 🔬 Advanced Features
+## Advanced Features
 
 ### Optimization Techniques
 - **Adaptive annealing schedules** in AMCS
@@ -183,7 +183,7 @@ python main.py
 - **Configuration-driven** experimentation
 - **Plugin architecture** for custom scoring functions
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions from the graph theory and machine learning communities:
 
@@ -192,30 +192,30 @@ We welcome contributions from the graph theory and machine learning communities:
 3. **Performance optimization**: Improve computational efficiency
 4. **Documentation**: Expand mathematical explanations and usage examples
 
-## 📚 References
+## References
 
 - Díaz, J., Serna, M., & Thilikos, D. M. (2002). Counting H-colorings of partial k-trees
 - Lovász, L. (2012). Large networks and graph limits
 - Sidorenko, A. F. (1993). A correlation inequality for bipartite graphs
 - Schulman, J., et al. (2017). Proximal Policy Optimization Algorithms
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🎓 Citation
+## Citation
 
 If you use this code in your research, please cite:
 ```bibtex
 @software{ai_graph_counterexamples,
   title={AI-Powered Graph Theory Counterexample Discovery},
-  author={[Author Names]},
+  author={[Iurii Beliaev]},
   year={2024},
-  url={https://github.com/[username]/AI_powered_graph_theory_counterexample_discovery}
+  url={https://github.com/yura4350/AI_powered_graph_theory_counterexample_discovery}
 }
 ```
 
-## 📞 Contact
+## Contact
 
 For questions, suggestions, or collaborations, please open an issue or contact the maintainers.
 
