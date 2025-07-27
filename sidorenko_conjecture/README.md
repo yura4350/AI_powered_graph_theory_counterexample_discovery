@@ -7,7 +7,7 @@ This directory contains implementations for discovering counterexamples to the *
 ### The Conjecture
 Sidorenko's Conjecture, formulated by Alexander Sidorenko in 1993, states that:
 
-> *For every bipartite graph $H$ and every graph $G$:*
+> *For every bipartite graph H and every graph G:*
 > $$t(H, G) \geq t(K_2, G)^{|E(H)|}$$
 
 Where:
